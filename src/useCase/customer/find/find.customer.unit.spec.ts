@@ -1,4 +1,3 @@
-import { CustomerRepository } from '../../../infrastructure/customer/repository/sequelize/customer.repository';
 import { Customer } from '../../../domain/customer/entity/customer';
 import { Address } from '../../../domain/customer/value-object/Address';
 import { FindCustomerUseCase } from './find.customer.usecase';
