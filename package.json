@@ -1,7 +1,7 @@
 {
-  "name": "ddd",
+  "name": "clean-architecture",
   "version": "1.0.0",
-  "description": "",
+  "description": "A project to learn clean architecture with nodejs",
   "main": "index.js",
   "scripts": {
     "test": "npm run tsc -- --noEmit && jest",
