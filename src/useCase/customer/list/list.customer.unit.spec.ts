@@ -38,7 +38,7 @@ describe('Unit Test list customers use case', () => {
 		const customerRepository = MockRepository();
 		const useCase = new ListCustomerUseCase(customerRepository);
 
-		const output = await useCase.execute();
+		const output = await useCase.execute({});
 		expect(output.customers.length).toEqual(2);
 		expect(output.customers[0].id).toEqual(customer1.id);
 		expect(output.customers[0].name).toEqual(customer1.name);
@@ -47,6 +47,5 @@ describe('Unit Test list customers use case', () => {
 		expect(output.customers[1].id).toEqual(customer2.id);
 		expect(output.customers[1].name).toEqual(customer2.name);
 		expect(output.customers[1].address.street).toEqual(customer2.address.street);
-
 	});
 });
