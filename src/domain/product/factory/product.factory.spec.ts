@@ -2,7 +2,7 @@ import { ProductFactory } from './product.factory';
 
 describe('Product factory unit test', () => {
 	it('Should create a product type a', () => {
-		const product = ProductFactory.create({ type: 'a', name: 'Product A', price: 1 });
+		const product = ProductFactory.createWithType({ type: 'a', name: 'Product A', price: 1 });
 		expect(product.id).toBeDefined();
 		expect(product.name).toBe('Product A');
 		expect(product.price).toBe(1);
@@ -10,7 +10,7 @@ describe('Product factory unit test', () => {
 	});
 
 	it('Should create a product type b', () => {
-		const product = ProductFactory.create({ type: 'b', name: 'Product B', price: 2 });
+		const product = ProductFactory.createWithType({ type: 'b', name: 'Product B', price: 2 });
 		expect(product.id).toBeDefined();
 		expect(product.name).toBe('Product B');
 		expect(product.price).toBe(4);
@@ -19,7 +19,7 @@ describe('Product factory unit test', () => {
 
 	it('Should throw an error when product type is not supported', () => {
 		expect(() => {
-			ProductFactory.create({ type: 'x', name: 'Product A', price: 1 });
+			ProductFactory.createWithType({ type: 'x', name: 'Product A', price: 1 });
 		}).toThrowError('Product type is not supported');
 	});
 });
