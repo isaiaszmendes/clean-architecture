@@ -3,9 +3,9 @@ import { Product } from '../../../../domain/product/entity/product';
 
 import { ProductModel } from './product.model';
 
-import { ProductRepositorySequelize } from './product.repository';
+import { ProductRepository } from './product.repository';
 
-describe('ProductRepositorySequelize unit test', () => {
+describe('ProductRepository unit test', () => {
 	let sequelize: Sequelize;
 
 	beforeEach(async () => {
@@ -25,7 +25,7 @@ describe('ProductRepositorySequelize unit test', () => {
 	});
 
 	it('Should create a product', async () => {
-		const productRepository = new ProductRepositorySequelize();
+		const productRepository = new ProductRepository();
 		const product = new Product({ id: '1', name: 'Produto 1', price: 100 });
 
 		await productRepository.create(product);
@@ -36,7 +36,7 @@ describe('ProductRepositorySequelize unit test', () => {
 	});
 
 	it('Should update a product', async () => {
-		const productRepository = new ProductRepositorySequelize();
+		const productRepository = new ProductRepository();
 		const product = new Product({ id: '1', name: 'Produto 1', price: 100 });
 
 		await productRepository.create(product);
@@ -56,7 +56,7 @@ describe('ProductRepositorySequelize unit test', () => {
 	});
 
 	it('Should find a product', async () => {
-		const productRepository = new ProductRepositorySequelize();
+		const productRepository = new ProductRepository();
 		const product = new Product({ id: '1', name: 'Produto 1', price: 100 });
 
 		await productRepository.create(product);
@@ -74,7 +74,7 @@ describe('ProductRepositorySequelize unit test', () => {
 	});
 
 	it('Should find all products', async () => {
-		const productRepository = new ProductRepositorySequelize();
+		const productRepository = new ProductRepository();
 		const product = new Product({ id: '1', name: 'Produto 1', price: 100 });
 
 		await productRepository.create(product);

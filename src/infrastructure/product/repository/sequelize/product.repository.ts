@@ -5,7 +5,7 @@ import { ProductModel } from './product.model';
 /**
  * Aqui sim nós fazemos acoplamento de dependencias
  */
-export class ProductRepositorySequelize implements ProductRepositoryInterface {
+export class ProductRepository implements ProductRepositoryInterface {
 	async create(entity: Product): Promise<void> {
 		await ProductModel.create({
 			id: entity.id,

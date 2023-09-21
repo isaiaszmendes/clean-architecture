@@ -7,7 +7,7 @@ import { Product } from '../../../../domain/product/entity/product';
 import { CustomerModel } from '../../../customer/repository/sequelize/customer.model';
 import { CustomerRepository } from '../../../customer/repository/sequelize/customer.repository';
 import { ProductModel } from '../../../product/repository/sequelize/product.model';
-import { ProductRepositorySequelize } from '../../../product/repository/sequelize/product.repository';
+import { ProductRepository } from '../../../product/repository/sequelize/product.repository';
 import { OrderItemModel } from './order-item.model';
 import { OrderModel } from './order.model';
 import { OrderRepository } from './order.repository';
@@ -38,7 +38,7 @@ describe('OrderRepository unit test', () => {
 		customer.addAddress(address);
 		await customerRepository.create(customer);
 
-		const productRepository = new ProductRepositorySequelize();
+		const productRepository = new ProductRepository();
 		const product = new Product({ id: '95', name: 'Apple', price: 55 });
 		await productRepository.create(product);
 
@@ -82,7 +82,7 @@ describe('OrderRepository unit test', () => {
 		customer.addAddress(address);
 		await customerRepository.create(customer);
 
-		const productRepository = new ProductRepositorySequelize();
+		const productRepository = new ProductRepository();
 		const product = new Product({ id: '26', name: 'Mesa', price: 2000 });
 		await productRepository.create(product);
 
@@ -145,7 +145,7 @@ describe('OrderRepository unit test', () => {
 		customer.addAddress(address);
 		await customerRepository.create(customer);
 
-		const productRepository = new ProductRepositorySequelize();
+		const productRepository = new ProductRepository();
 		const product = new Product({ id: '26', name: 'Mesa', price: 2000 });
 		await productRepository.create(product);
 
@@ -181,7 +181,7 @@ describe('OrderRepository unit test', () => {
 		customer.addAddress(address);
 		await customerRepository.create(customer);
 
-		const productRepository = new ProductRepositorySequelize();
+		const productRepository = new ProductRepository();
 		const product = new Product({ id: '27', name: 'cadeira', price: 1200 });
 		await productRepository.create(product);
 
