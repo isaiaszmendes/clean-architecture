@@ -37,7 +37,7 @@ describe('Integration Test Find Product', () => {
 	it('should find a product', async () => {
 		const productRepository = new ProductRepository();
 		await productRepository.create(product);
-		console.log(product.id);
+
 		const useCase = new FindProductUseCase(productRepository);
 
 		const result = await useCase.execute(input);
