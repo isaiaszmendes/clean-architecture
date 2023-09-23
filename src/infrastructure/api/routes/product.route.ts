@@ -3,6 +3,7 @@ import { CreateProductUseCase } from '../../../useCase/product/create/create.pro
 import { ProductRepository } from '../../product/repository/sequelize/product.repository';
 import { ListProductUseCase } from '../../../useCase/product/list/list.product.usecase';
 import { FindProductUseCase } from '../../../useCase/product/find/find.product.usecase';
+import { UpdateProductUseCase } from '../../../useCase/product/update/update.product.usecase';
 
 export const productRouter = async (fastify: FastifyInstance) => {
 	fastify.post('/', async (request: FastifyRequest<{
@@ -42,6 +43,28 @@ export const productRouter = async (fastify: FastifyInstance) => {
 
 		try {
 			const output = await useCase.execute({ id: request.params.id });
+			reply.code(200).send(output);
+		} catch (err) {
+			reply.code(500).send(err);
+		}
+	});
+
+	fastify.put('/:id', async (request: FastifyRequest<{
+		Params: { id: string },
+		Body: {
+			name: string,
+			price: number,
+		}
+	}>, reply: FastifyReply) => {
+		const useCase = new UpdateProductUseCase(new ProductRepository());
+
+		try {
+			const requestDTO = {
+				id: request.params.id,
+				name: request.body.name,
+				price: request.body.price,
+			};
+			const output = await useCase.execute(requestDTO);
 			reply.code(200).send(output);
 		} catch (err) {
 			reply.code(500).send(err);
