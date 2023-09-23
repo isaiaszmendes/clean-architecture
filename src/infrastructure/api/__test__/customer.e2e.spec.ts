@@ -1,5 +1,6 @@
 import { app, sequelize } from '../fastify';
 import request from 'supertest';
+
 const mockCustomer = {
 	name: 'John Doe',
 	address: {
@@ -74,5 +75,21 @@ describe('E2E Test for Customer', () => {
 		expect(customerResponse.body.customers[1].address.number).toBe(546);
 		expect(customerResponse.body.customers[1].address.city).toBe('New York');
 		expect(customerResponse.body.customers[1].address.zip).toBe('54321-952');
+	});
+
+	it('should get a customer by id', async () => {
+		const response = await request(app.server).post('/customer').send(mockCustomer);
+		expect(response.status).toBe(201);
+		expect(response.body.id).toBeDefined();
+
+		const responseCustomer = await request(app.server)
+			.get(`/customer/${response.body.id}`);
+
+		expect(responseCustomer.status).toBe(200);
+		expect(responseCustomer.body.name).toBe('John Doe');
+		expect(responseCustomer.body.address.street).toBe('Main Street');
+		expect(responseCustomer.body.address.number).toBe(123);
+		expect(responseCustomer.body.address.city).toBe('New York');
+		expect(responseCustomer.body.address.zip).toBe('12345-678');
 	});
 });
