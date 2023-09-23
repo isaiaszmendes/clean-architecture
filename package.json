@@ -11,6 +11,9 @@
   },
   "keywords": [],
   "author": "",
+  "engines": {
+    "node": ">=18.13.0"
+  },
   "license": "ISC",
   "devDependencies": {
     "@swc/cli": "^0.1.60",
