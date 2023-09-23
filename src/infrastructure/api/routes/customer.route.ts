@@ -35,7 +35,7 @@ export const customerRouter = async (fastify: FastifyInstance) => {
 		}
 	});
 
-	fastify.get('/', async (request: FastifyRequest, reply: FastifyReply) => {
+	fastify.get('/', async (_request: FastifyRequest, reply: FastifyReply) => {
 		const useCase = new ListCustomerUseCase(new CustomerRepository());
 
 		try {
