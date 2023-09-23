@@ -29,7 +29,6 @@ describe('E2E Test for Product', () => {
 		expect(response.status).toBe(201);
 		expect(response.body.name).toBe('product 1');
 		expect(response.body.price).toBe(10);
-
 	});
 
 	it('should not create a Product with invalid data', async () => {
@@ -55,6 +54,18 @@ describe('E2E Test for Product', () => {
 		expect(productResponse.body.products[0].price).toBe(10);
 		expect(productResponse.body.products[1].name).toBe('product 2');
 		expect(productResponse.body.products[1].price).toBe(20);
+	});
 
+	it('should get a product by id', async () => {
+		const response = await request(app.server).post('/product').send(mockProduct);
+		expect(response.status).toBe(201);
+		expect(response.body.id).toBeDefined();
+
+		const responseProduct = await request(app.server)
+			.get(`/product/${response.body.id}`);
+
+		expect(responseProduct.status).toBe(200);
+		expect(responseProduct.body.name).toBe('product 1');
+		expect(responseProduct.body.price).toBe(10);
 	});
 });
