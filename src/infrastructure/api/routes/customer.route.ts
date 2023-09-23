@@ -2,6 +2,7 @@ import { FastifyRequest, FastifyReply, FastifyInstance } from 'fastify';
 import { CreateCustomerUseCase } from '../../../useCase/customer/create/create.customer.usecase';
 import { CustomerRepository } from '../../customer/repository/sequelize/customer.repository';
 import { ListCustomerUseCase } from '../../../useCase/customer/list/list.customer.usecase';
+import { FindCustomerUseCase } from '../../../useCase/customer/find/find.customer.usecase';
 
 export const customerRouter = async (fastify: FastifyInstance) => {
 	fastify.post('/', async (request: FastifyRequest<{
@@ -40,6 +41,17 @@ export const customerRouter = async (fastify: FastifyInstance) => {
 
 		try {
 			const output = await useCase.execute({});
+			reply.code(200).send(output);
+		} catch (err) {
+			reply.code(500).send(err);
+		}
+	});
+
+	fastify.get('/:id', async (request: FastifyRequest<{ Params: { id: string } }>, reply: FastifyReply) => {
+		const useCase = new FindCustomerUseCase(new CustomerRepository());
+
+		try {
+			const output = await useCase.execute({ id: request.params.id });
 			reply.code(200).send(output);
 		} catch (err) {
 			reply.code(500).send(err);
