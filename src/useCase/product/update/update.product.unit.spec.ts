@@ -11,6 +11,11 @@ const input = {
 	price: 20,
 };
 
+// O input representa o que eu quero atualizar no produto que será encontrado no find
+// o que está no find possui os valores { name: 'Product 1', price: 10 }
+// Quando mando o input eu espero que os valores sejam os mesmos do input
+// pois quer dizer que o update funcionou
+
 const output = {
 	id: product.id,
 	name: 'Product 2',
