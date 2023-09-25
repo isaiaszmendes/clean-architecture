@@ -10,12 +10,10 @@ export class Notification {
 		this.errors.push(error);
 	}
 
-	messages(context: string): string {
-		const messages = this.errors
-			.filter(error => error.context === context)
-			.map(error => error.message)
+	messages(context?: string): string {
+		return this.errors
+			.filter(error => error.context === context || context === undefined)
+			.map(error => `${error.context}: ${error.message}`)
 			.join(',');
-
-		return `${context}: ${messages},`;
 	}
 }
