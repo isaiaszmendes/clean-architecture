@@ -1,3 +1,5 @@
+import { Entity } from '../../@shared/entity/entity.abstract';
+import { NotificationError } from '../../@shared/notification/notification.error';
 import { Address } from '../value-object/Address';
 
 export type CustomerProps = {
@@ -5,21 +7,21 @@ export type CustomerProps = {
   name: string
 }
 
-export class Customer {
-	private _id: string;
+export class Customer extends Entity {
 	private _name: string;
 	private _address!: Address;
 	private _active = false;
 	private _rewardPoints = 0;
 
 	constructor({ id, name }: CustomerProps) {
+		super();
 		this._id = id;
 		this._name = name;
 		this.validate();
-	}
 
-	get id(): string {
-		return this._id;
+		if (this.notification.hasErrors()) {
+			throw new NotificationError(this.notification.getErrors());
+		}
 	}
 
 	get name(): string {
@@ -35,8 +37,19 @@ export class Customer {
 	}
 
 	validate() {
-		if (this._id.length === 0) throw new Error('Id is required');
-		if (this._name.length === 0) throw new Error('Name is required');
+		if (this._id.length === 0) {
+			this.notification.addError({
+				context: 'customer',
+				message: 'Id is required'
+			});
+		}
+
+		if (this._name.length === 0) {
+			this.notification.addError({
+				context: 'customer',
+				message: 'Name is required'
+			});
+		}
 	}
 
 	changeName(name: string) {
