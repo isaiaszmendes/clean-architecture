@@ -11,7 +11,7 @@ describe('Unit Test Notification', () => {
 
 		notification.addError(error);
 
-		expect(notification.messages('customer')).toEqual('customer: error message,');
+		expect(notification.messages('customer')).toEqual('customer: error message');
 
 
 		const error2 = {
@@ -20,7 +20,7 @@ describe('Unit Test Notification', () => {
 		};
 
 		notification.addError(error2);
-		expect(notification.messages('customer')).toEqual('customer: error message,error message2,');
+		expect(notification.messages('customer')).toEqual('customer: error message,customer: error message2');
 
 		const error3 = {
 			message: 'error message3',
@@ -28,9 +28,11 @@ describe('Unit Test Notification', () => {
 		};
 
 		notification.addError(error3);
-		expect(notification.messages('customer')).toEqual('customer: error message,error message2,');
+		expect(notification.messages('customer')).toEqual('customer: error message,customer: error message2');
 
-		expect(notification.messages('order')).toEqual('order: error message3,');
+		expect(notification.messages('order')).toEqual('order: error message3');
+
+		expect(notification.messages()).toEqual('customer: error message,customer: error message2,order: error message3');
 
 	});
 });
