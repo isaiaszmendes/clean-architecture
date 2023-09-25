@@ -33,6 +33,18 @@ describe('Unit Test Notification', () => {
 		expect(notification.messages('order')).toEqual('order: error message3');
 
 		expect(notification.messages()).toEqual('customer: error message,customer: error message2,order: error message3');
+	});
 
+	it('should check if notification has at least one error', () => {
+		const notification = new Notification();
+
+		const error = {
+			message: 'error message',
+			context: 'customer'
+		};
+
+		notification.addError(error);
+
+		expect(notification.hasErrors()).toBeTruthy();
 	});
 });
