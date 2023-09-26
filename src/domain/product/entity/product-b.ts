@@ -22,7 +22,7 @@ export class ProductB implements ProductInterface {
 		// validate should receive params to validate
 		if (this._id.length === 0) throw new Error('id is required');
 		if (this._name.length === 0) throw new Error('name is required');
-		if (this._price < 0) throw new Error('price must be be greater than zero');
+		if (this._price < 0) throw new Error('price must be greater than zero');
 		return true;
 	}
 
