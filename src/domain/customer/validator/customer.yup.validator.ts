@@ -13,8 +13,14 @@ export class CustomerYupValidator implements ValidatorInterface<Customer> {
 					id: entity.id,
 					name: entity.name,
 				}, { abortEarly: false });
-		} catch (error) {
+		} catch (errors) {
+			const e = errors as yup.ValidationError;
+			e.errors.forEach((error) => {
+				entity.notification.addError({
+					context: 'customer',
+					message: error,
+				});
+			});
 		}
 	}
-
 }
