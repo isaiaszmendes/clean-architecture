@@ -1,6 +1,7 @@
 import * as yup from 'yup';
 import { ValidatorInterface } from '../../@shared/validator/validator.interface';
 import { Customer } from '../entity/customer';
+
 export class CustomerYupValidator implements ValidatorInterface<Customer> {
 	validator(entity: Customer): void {
 		try {
