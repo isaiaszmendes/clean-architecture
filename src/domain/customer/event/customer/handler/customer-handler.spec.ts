@@ -43,7 +43,12 @@ describe('Customer Handler Unit Tests', () => {
 		const customerCreatedEvent = new CustomerCreatedEvent({
 			id: customer.id,
 			name: customer.name,
-			address: Object.values(customer.address).join(', '),
+			address: {
+				street: customer.address.street,
+				number: customer.address.number,
+				city: customer.address.city,
+				zip: customer.address.zip,
+			},
 		});
 
 		new SendLogWhenCustomerAddressIsChangeHandler().handle(customerCreatedEvent);
