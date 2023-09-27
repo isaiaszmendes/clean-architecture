@@ -4,6 +4,7 @@ import { CustomerRepository } from '../../customer/repository/sequelize/customer
 import { ListCustomerUseCase } from '../../../useCase/customer/list/list.customer.usecase';
 import { FindCustomerUseCase } from '../../../useCase/customer/find/find.customer.usecase';
 import { UpdateCustomerUseCase } from '../../../useCase/customer/update/update.customer.usecase';
+import { CustomerPresenter } from '../presenters/customer.presenter';
 
 export const customerRouter = async (fastify: FastifyInstance) => {
 	fastify.post('/', async (request: FastifyRequest<{
@@ -37,12 +38,22 @@ export const customerRouter = async (fastify: FastifyInstance) => {
 		}
 	});
 
-	fastify.get('/', async (_request: FastifyRequest, reply: FastifyReply) => {
+	fastify.get('/', async (request: FastifyRequest, reply: FastifyReply) => {
 		const useCase = new ListCustomerUseCase(new CustomerRepository());
 
 		try {
 			const output = await useCase.execute({});
-			reply.code(200).send(output);
+			const accept = request.headers.accept;
+			if (accept && accept.includes('xml')) {
+				const xmlOutput = CustomerPresenter.toXML(output);
+				reply.code(200).header('Content-Type', 'application/xml').send(xmlOutput);
+
+			} else {
+				reply.code(200).header('Content-Type', 'application/json').send(output);
+				// ser eu quiser forçar a passagem do accept no header
+				// e não tiver mapeado, eu posso mandar esse erro
+				// reply.code(406).send('Not Acceptable');
+			}
 		} catch (err) {
 			reply.code(500).send(err);
 		}
