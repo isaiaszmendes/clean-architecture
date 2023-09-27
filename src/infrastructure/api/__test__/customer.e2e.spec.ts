@@ -109,4 +109,30 @@ describe('E2E Test for Customer', () => {
 		expect(responseCustomer.body.address.city).toBe('New York');
 		expect(responseCustomer.body.address.zip).toBe('54321-952');
 	});
+
+	it('should return a customer using xml format', async () => {
+		const response = await request(app.server).post('/customer').send(mockCustomer);
+		const response2 = await request(app.server).post('/customer').send(mockCustomer2);
+		expect(response.status).toBe(201);
+		expect(response2.status).toBe(201);
+
+		const listResponseXML = await request(app.server)
+			.get('/customer')
+			.set('Accept', 'application/xml');
+
+		expect(listResponseXML.status).toBe(200);
+		expect(listResponseXML.text).toContain('<?xml version="1.0" encoding="UTF-8"?>');
+		expect(listResponseXML.text).toContain('<customers>');
+		expect(listResponseXML.text).toContain('<customer>');
+		expect(listResponseXML.text).toContain('<id>');
+		expect(listResponseXML.text).toContain('<name>');
+		expect(listResponseXML.text).toContain('<address>');
+		expect(listResponseXML.text).toContain('<street>');
+		expect(listResponseXML.text).toContain('<number>');
+		expect(listResponseXML.text).toContain('<city>');
+		expect(listResponseXML.text).toContain('<zip>');
+		expect(listResponseXML.text).toContain('</customer>');
+		expect(listResponseXML.text).toContain('</customers>');
+
+	});
 });
